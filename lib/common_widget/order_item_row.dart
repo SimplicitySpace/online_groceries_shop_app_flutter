@@ -1,25 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:online_groceries/common/color_extension.dart';
+import 'package:online_groceries/common_widget/round_button.dart';
 import 'package:online_groceries/model/product_detail_model.dart';
 
 class OrderItemRow extends StatelessWidget {
+  final bool showReviewButton;
   final ProductDetailModel pObj;
+  final VoidCallback? onWriteReviewPressed;
 
-  const OrderItemRow({super.key, required this.pObj});
+  const OrderItemRow(
+      {super.key,
+      required this.pObj,
+      this.showReviewButton = false,
+      this.onWriteReviewPressed});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        height: 100,
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(5),
             boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 2)]),
-        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -73,12 +78,9 @@ class OrderItemRow extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700),
                             ),
-                            
                             const SizedBox(
                               width: 15,
                             ),
-
-
                             Text(
                               (pObj.qty ?? 0).toString(),
                               style: TextStyle(
@@ -86,11 +88,9 @@ class OrderItemRow extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600),
                             ),
-
                             const SizedBox(
                               width: 8,
                             ),
-
                             Text(
                               "×",
                               style: TextStyle(
@@ -98,11 +98,9 @@ class OrderItemRow extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700),
                             ),
-
                             const SizedBox(
                               width: 8,
                             ),
-
                             Text(
                               "\$${(pObj.itemPrice ?? 0).toStringAsFixed(2)}",
                               style: TextStyle(
@@ -110,8 +108,6 @@ class OrderItemRow extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600),
                             ),
-
-                          
                             const Spacer(),
                             Text(
                               "\$${(pObj.totalPrice ?? 0).toStringAsFixed(2)}",
@@ -126,6 +122,17 @@ class OrderItemRow extends StatelessWidget {
                 ),
               ],
             ),
+            if (showReviewButton)
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: RoundButton(
+                    title: "Write A Review",
+                    onPressed: () {
+                      if (onWriteReviewPressed != null) {
+                        onWriteReviewPressed!();
+                      }
+                    }),
+              )
           ],
         ),
       ),

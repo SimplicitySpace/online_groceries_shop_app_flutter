@@ -24,6 +24,8 @@ class ProductDetailModel {
   String? endDate;
   int? isOfferActive;
   bool? isFav;
+  double? rating;
+  String? message;
 
   ProductDetailModel(
       {this.prodId,
@@ -45,7 +47,9 @@ class ProductDetailModel {
       this.startDate,
       this.endDate,
       this.isOfferActive,
-      this.isFav});
+      this.isFav,
+      this.rating,
+      this.message});
 
   ProductDetailModel.fromJson(Map<String, dynamic> json) {
     prodId = json['prod_id'];
@@ -73,6 +77,8 @@ class ProductDetailModel {
     endDate = json['end_date'];
     isOfferActive = json['is_offer_active'];
     isFav = (json['is_fav'] as int? ?? 0) == 1;
+    rating = double.tryParse(json['rating'].toString()) ?? 0;
+    message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
@@ -102,6 +108,8 @@ class ProductDetailModel {
     data['end_date'] = endDate;
     data['is_offer_active'] = isOfferActive;
     data['is_fav'] = isFav;
+    data['rating'] = rating;
+    data['message'] = message;
     return data;
   }
 }

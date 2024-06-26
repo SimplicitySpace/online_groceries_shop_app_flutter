@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_groceries/common_widget/my_order_row.dart';
+import 'package:online_groceries/common_widget/popup_layout.dart';
+import 'package:online_groceries/view/account/write_review_view.dart';
 import 'package:online_groceries/view_model/addres_view_mode.dart';
 
 import '../../common/color_extension.dart';
@@ -171,8 +173,6 @@ class _MyOrdersDetailViewState extends State<MyOrdersDetailView> {
                     ),
                   ]),
             ),
-            
-
             Obx(
               () => ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -183,11 +183,19 @@ class _MyOrdersDetailViewState extends State<MyOrdersDetailView> {
                     var pObj = detailVM.cartList[index];
                     return OrderItemRow(
                       pObj: pObj,
+                      showReviewButton:
+                          widget.mObj.orderStatus == 3 && pObj.rating == 0.0,
+                      onWriteReviewPressed: () {
+                        Navigator.push(
+                            context,
+                            PopupLayout(
+                                child: WriteReviewView(
+                                    didSubmit: (rating, message) {})));
+                      },
                     );
                   },
                   itemCount: detailVM.cartList.length),
             ),
-            
             Container(
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
@@ -273,9 +281,9 @@ class _MyOrdersDetailViewState extends State<MyOrdersDetailView> {
                       height: 8,
                     ),
                     Container(
-                          width: double.maxFinite,
-                          height: 1,
-                          color: Colors.black12),
+                        width: double.maxFinite,
+                        height: 1,
+                        color: Colors.black12),
                     const SizedBox(
                       height: 8,
                     ),
@@ -303,7 +311,6 @@ class _MyOrdersDetailViewState extends State<MyOrdersDetailView> {
                     ),
                   ]),
             ),
-            
             const SizedBox(
               height: 15,
             ),
