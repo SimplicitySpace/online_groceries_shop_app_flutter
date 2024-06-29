@@ -186,11 +186,15 @@ class _MyOrdersDetailViewState extends State<MyOrdersDetailView> {
                       showReviewButton:
                           widget.mObj.orderStatus == 3 && pObj.rating == 0.0,
                       onWriteReviewPressed: () {
-                        Navigator.push(
-                            context,
-                            PopupLayout(
-                                child: WriteReviewView(
-                                    didSubmit: (rating, message) {})));
+                        Navigator.push(context, PopupLayout(child:
+                            WriteReviewView(didSubmit: (rating, message) {
+                          detailVM.serviceCallGiveRatingReview(
+                              pObj.prodId?.toString() ?? "",
+                              rating.toStringAsFixed(1),
+                              message, () {
+                            Navigator.pop(context);
+                          });
+                        })));
                       },
                     );
                   },

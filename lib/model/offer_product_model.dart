@@ -16,25 +16,28 @@ class OfferProductModel {
   String? catName;
   String? typeName;
   bool? isFav;
+  double? avgRating;
 
-  OfferProductModel(
-      {this.offerPrice,
-      this.startDate,
-      this.endDate,
-      this.prodId,
-      this.catId,
-      this.brandId,
-      this.typeId,
-      this.name,
-      this.detail,
-      this.unitName,
-      this.unitValue,
-      this.nutritionWeight,
-      this.price,
-      this.image,
-      this.catName,
-      this.typeName,
-      this.isFav});
+  OfferProductModel({
+    this.offerPrice,
+    this.startDate,
+    this.endDate,
+    this.prodId,
+    this.catId,
+    this.brandId,
+    this.typeId,
+    this.name,
+    this.detail,
+    this.unitName,
+    this.unitValue,
+    this.nutritionWeight,
+    this.price,
+    this.image,
+    this.catName,
+    this.typeName,
+    this.isFav,
+    this.avgRating,
+  });
 
   OfferProductModel.fromJson(Map<String, dynamic> json) {
     offerPrice = json['offer_price'];
@@ -54,6 +57,7 @@ class OfferProductModel {
     catName = json['cat_name'];
     typeName = json['type_name'];
     isFav = (json['is_fav'] as int? ?? 0) == 1;
+    avgRating = double.tryParse(json['avg_rating'].toString()) ?? 0.0;
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +79,7 @@ class OfferProductModel {
     data['cat_name'] = catName;
     data['type_name'] = typeName;
     data['is_fav'] = isFav;
+    data['avg_rating'] = avgRating;
     return data;
   }
 }

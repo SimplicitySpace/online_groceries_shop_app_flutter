@@ -122,6 +122,8 @@ class SVKey {
   static const svForgotPasswordRequest = '${baseUrl}forgot_password_request';
   static const svForgotPasswordVerify = '${baseUrl}forgot_password_verify';
   static const svForgotPasswordSetPassword = '${baseUrl}forgot_password_set_password';
+
+  static const svProductRatingReview = "${baseUrl}order_product_review_add";
 }
 
 class KKey {

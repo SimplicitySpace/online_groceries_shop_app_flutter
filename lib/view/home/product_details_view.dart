@@ -332,6 +332,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   const SizedBox(
                     height: 8,
                   ),
+                  if( (detailVM.pObj.avgRating ?? 0.0) > 0.0 )
                   Row(
                     children: [
                       Expanded(
@@ -346,7 +347,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       IgnorePointer(
                         ignoring: true,
                         child: RatingBar.builder(
-                          initialRating: 5,
+                          initialRating: detailVM.pObj.avgRating ?? 0.0 ,
                           minRating: 1,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
@@ -356,7 +357,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               const EdgeInsets.symmetric(horizontal: 1.0),
                           itemBuilder: (context, _) => const Icon(
                             Icons.star,
-                            color: Color(0xffF3603F),
+                            color: Colors.amber,
                           ),
                           onRatingUpdate: (rating) {
                             print(rating);
